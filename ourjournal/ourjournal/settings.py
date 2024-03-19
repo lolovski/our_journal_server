@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'listUsers.apps.ListusersConfig',
     'about.apps.AboutConfig',
-    'sorl.thumbnail',
+    'sorl.thumbnail'
 
 ]
 

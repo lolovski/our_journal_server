@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% load thumbnail %}
+
+
+{% block title %}Пост {{ post_title }}{% endblock %}
+{% block content %}
+<main>
+  <div class="container py-5">
+    <div class="row">
+    {% thumbnail homework.image "800x300" crop="center" upscale=True as im %}
+             <img class="card-img my-2" src="{{ im.url }}">
+          {% endthumbnail %}
+    <h1 class="card-text">{{ homework.text|linebreaksbr }}</h1><br><br>
+      <aside class="col-12 col-md-3">
+        <ul class="list-group list-group-flush">
+
+          <li class="list-group-item">
+            Дата публикации: <br>{{ pub_day }} {{ pub_date_start|date:"d E" }} - {{ pub_date_end|date:"d E" }}
+          </li>
+          {% if homework.class_user %}
+          <li class="list-group-item">
+            
+            <a href="{% url 'classes:classes_homeworks' homework.class_user.id %}">
+              все домашние работы класса
+            </a>
+            {% endif %}
+          </li>
+          <li class="list-group-item">
+            Автор: {{ homework.author }}
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Всего постов автора: <span>{{ author_posts }}</span>
+          </li>
+          <li class="list-group-item">
+            <a href="{% url 'homeworks:profile' homework.author.username %}">
+                Профиль пользователя
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+    {% include 'homeworks/includes/add_comment.html' %} 
+
+
+
+    
+</main>
+{% endblock %}
+ 
+
+
+
+

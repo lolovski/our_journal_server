@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% block content %}
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+      <div class="container py-5">
+          {% for hw_week_start, hw_week_end in page_obj %}
+                <h2>{{ hw_week_start }} {{ hw_week_end }}</h2> <br><br>
+              {% for day in days %}
+                  {{ day }}
+                  {% for shedule in shedules %}
+                    {% if shedule.day == day %}
+
+                        <ul>
+                        <li>
+                            Предмет: {{ shedule.lesson }}
+                        </li>
+                        <li>
+                           {% if shedule.homeworks.all|in_category:hw_week_start %}
+                                {% for hw in shedule.homeworks.all|in_category:hw_week_start %}
+                                    {% if hw.week == hw_week_start %}
+                                        Домашнее задание: {{ hw.text }}<br>
+                                        <a href="{% url "classes:homework_detail" class_user_id=hw.author.class_user.id homework_id=hw.id %}">Подробнее</a>
+                                    {% endif %}
+                                {% endfor %}
+                               {% else %} <a href="{% url 'homeworks:homework_create' lesson_id=shedule.id week=hw_week_start|date:"d.m.Y" %}">Добавить задание</a>
+
+                            {% endif %}
+
+                        </li>
+                        </ul>
+
+                      {% endif %}
+            {% endfor %}
+
+      {% endfor %}
+              {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+      </div>
+        {% include 'homeworks/includes/paginator.html' %}
+    {% endblock %}

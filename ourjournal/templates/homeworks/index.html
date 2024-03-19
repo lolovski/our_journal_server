@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+    {% block content %}
+        {% if request.user.is_authenticated %}
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+              <div class="container py-5 row">
+              {% if text %}
+                <div class="col-12" style="background: #0dcaf0">{{ text }}</div>
+
+                {% endif %}
+              <a class="navbar-brand" href="{% url 'classes:classes' %}">
+                  Классы
+              </a>
+              <a class="navbar-brand" href="{% url 'classes:classes_homeworks' class_user %}">Дневник</a>
+
+              </div>
+            {% else %}
+             <div class="container py-5 row">
+            <h3><a class="btn btn-primary" href="{% url 'users:signup' %}">Зарегистрироваться</a></h3>
+        {% endif %}
+        
+
+    {% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+    {% block content %}
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+      <div class="container py-5">
+          {% for class in classes %}
+            <ul>
+            <li>
+                Номер: {{ class.name }}
+            </li>
+            <li>
+                Школа: {{ class.school }}
+            </li>
+            </ul>
+              <a href="{% url 'classes:classes_homeworks' class.id %}">Домашние работы</a>
+              {% if not forloop.last %}<hr>{% endif %}
+            {% endfor %}
+      </div>  
+    {% endblock %}

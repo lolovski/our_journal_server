@@ -1,0 +1,3 @@
+def check_valid_users(request):
+    if request.user.is_authenticated:
+        ...

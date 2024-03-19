@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Профайл пользователя {{ username }}{% endblock %}
+{% block content %}
+{% load user_filters %}
+      <div class="container py-5">
+      <h3>{{ last_name }} {{ first_name }} из {{ class_user }}</h3>
+        <h3>Всего постов: {{ hw_count }} </h3>
+          <h3>Место в классе: {{ top_place_class }}</h3>
+        <a href="{% url "classes:classes_homeworks" class_user_id %}">все домашние работы класса</a>
+        <hr>
+      </div>
+
+{% endblock %}

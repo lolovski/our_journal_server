@@ -21,9 +21,9 @@ class ClassAdmin(admin.ModelAdmin):
 
 
 class SheduleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'class_user', 'lesson', 'day',)
-    search_fields = ('id',)
-    list_filter = ('class_user', 'lesson', 'day')
+    list_display = ('id', 'class_user', 'lesson', 'day', 'number',)
+    search_fields = ('id', 'lesson',)
+    list_filter = ('class_user', 'lesson', 'day', 'lesson')
 
 
 class SchoolAdmin(admin.ModelAdmin):

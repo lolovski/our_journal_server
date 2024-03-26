@@ -21,5 +21,11 @@ class User(AbstractUser):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+    def is_school_admin(self):
+        if self.status_id == 2:
+            return True
+        else:
+            return False
+
 
 

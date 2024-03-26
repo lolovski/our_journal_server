@@ -1,0 +1,19 @@
+<sour></sour>{% extends 'base.html' %}
+    {% block content %}
+
+         {% if request.user.is_school_admin %}
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+              <div class="container py-5 row">
+              {% if text %}
+                <div class="col-12" style="background: #0dcaf0">{{ text }}</div>
+
+                {% endif %}
+              <a class="btn btn-outline-dark" href="{% url 'school_admin_panel:classes_list' %}">
+                  <br>Управление классами</a><br><br><br><br><br><br> <br><br>
+                <a class="btn btn-outline-dark" href="{% url 'school_admin_panel:add_class' %}"><br> Добавить класс</a><br><br> <br><br>
+                <a class="navbar-brand" href="{% url 'school_admin_panel:update_year' %}">Обновить учебный год</a>(удалить 11 класс, удалить все расписания, сместить номера классов на +1)
+                <a class="navbar-brand" href="{% url 'school_admin_panel:update_shedule' %}">Удалить расписание</a>(все)
+              </div>
+        {% endif %}
+
+    {% endblock %}

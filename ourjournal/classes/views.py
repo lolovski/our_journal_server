@@ -20,21 +20,28 @@ from homeworks.forms import HomeworkForm, CommentForm
 User = get_user_model()
 
 
-@cache_page(15)
 def index(request):
 
     template = 'homeworks/index.html'
     title = 'Homeworks'
     text = 'Главная страница'
-    try:
+    class_user = 0
+    school_admin = False
+    if request.user.is_anonymous:
+        class_user = 0
+    else:
         if request.user.class_user_id:
             class_user = request.user.class_user_id
-    except:
-        class_user = None
+        if request.user.is_school_admin():
+            school_admin = True
+
+
     context = {
         'title': title,
         'text': text,
         'class_user': class_user,
+        'user': request.user,
+        'school_admin': school_admin,
 
     }
     return render(request, template, context)
@@ -65,18 +72,19 @@ def classes_homeworks(request, pk):
     start_week = sorted(list(set(start_week)))
 
     for week in start_week:
-        start_end = [week, week + timedelta(days=6)]
+        start_end = (week, week + timedelta(days=6))
         start_end_week.append(start_end)
     if len(start_end_week) > 1:
-        last_week = start_end_week.index(start_end_week[-1])
+        last_week = 0
         for week in range(1, 52):
             if start_end_week[last_week][1] + timedelta(days=7 * week) < date(2024, 6, 1):
-                start_end = [start_end_week[-1][0] + timedelta(days=(7)), start_end_week[-1][1] + timedelta(days=7)]
+                start_end = (start_end_week[last_week][0] + timedelta(days=(7 * week)), start_end_week[last_week][1] + timedelta(days=(7 * week)))
                 start_end_week.append(start_end)
     else:
         for week in range(-1, 52):
             if datetime.now().date() - timedelta(datetime.now().weekday()) + timedelta(days=7*week) < date(2024, 6, 1):
-                start_end_week.append([datetime.now().date() - timedelta(datetime.now().weekday()) + timedelta(days=7*week), datetime.now().date() - timedelta(datetime.now().weekday()) + timedelta(days=6+7*week)])
+                start_end_week.append((datetime.now().date() - timedelta(datetime.now().weekday()) + timedelta(days=7*week), datetime.now().date() - timedelta(datetime.now().weekday()) + timedelta(days=6+7*week)))
+    start_end_week = sorted(list(set(start_end_week)))
     paginator = Paginator(start_end_week, 1)
     page_numder = request.GET.get('page')
     page_obj = paginator.get_page(page_numder)

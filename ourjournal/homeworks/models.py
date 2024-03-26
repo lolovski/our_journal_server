@@ -6,7 +6,9 @@ from classes.models import Class, Shedule
 
 from users.models import User
 
-now = datetime.now()
+from django.utils import timezone
+
+now = datetime.now().date()
 
 # Create your models here.
 

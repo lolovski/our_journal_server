@@ -6,23 +6,24 @@
           {% for hw_week_start, hw_week_end in page_obj %}
                 <h2>{{ hw_week_start }} {{ hw_week_end }}</h2> <br><br>
               {% for day in days %}
-                  {{ day }}
+                  <p class="h2 text-sm-start">{{ day }}</p>
                   {% for shedule in shedules %}
                     {% if shedule.day == day %}
 
-                        <ul>
+                        <ul class="accordion">
                         <li>
-                            Предмет: {{ shedule.lesson }}
+                            <p class="text-md-start h4"> Предмет: {{ shedule.lesson }}</p>
                         </li>
                         <li>
                            {% if shedule.homeworks.all|in_category:hw_week_start %}
                                 {% for hw in shedule.homeworks.all|in_category:hw_week_start %}
                                     {% if hw.week == hw_week_start %}
-                                        Домашнее задание: {{ hw.text }}<br>
-                                        <a href="{% url "classes:homework_detail" class_user_id=hw.author.class_user.id homework_id=hw.id %}">Подробнее</a>
+                                        <p class="text-xl-start h5">Домашнее задание: {{ hw.text }}</p>
+                                        
+                                        <a class="btn btn-dark h5" href="{% url "classes:homework_detail" class_user_id=hw.author.class_user.id homework_id=hw.id %}">Подробнее</a>
                                     {% endif %}
                                 {% endfor %}
-                               {% else %} <a href="{% url 'homeworks:homework_create' lesson_id=shedule.id week=hw_week_start|date:"d.m.Y" %}">Добавить задание</a>
+                               {% else %} <a class="btn btn-dark h5" href="{% url 'homeworks:homework_create' lesson_id=shedule.id week=hw_week_start|date:"d.m.Y" %}">Добавить задание</a>
 
                             {% endif %}
 

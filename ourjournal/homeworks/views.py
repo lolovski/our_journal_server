@@ -118,3 +118,5 @@ def add_comment(request, homework_id):
                 homework.week = date(now.year, now.month, now.day - now.weekday())"""
 
 
+
+

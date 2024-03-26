@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('classes.urls', namespace='classes')),
     path('homeworks/', include('homeworks.urls', namespace='homeworks')),
     path('about/', include('about.urls', namespace='about')),
+    path('school_admin_panel/', include('school_admin_panel.urls', namespace='school_admin_panel'))
 
 ]
 

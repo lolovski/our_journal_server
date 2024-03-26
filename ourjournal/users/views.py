@@ -12,14 +12,15 @@ class SingUp(CreateView):
     template_name = 'users/signup.html'
 
     def form_valid(self, form, *args, **kwargs):
-        first_name = self.request.POST.get('first_name')
-        middle_name = self.request.POST.get("middle_name")
-        last_name = self.request.POST.get("last_name")
+        first_name = self.request.POST.get('first_name').replace(" ", "")
+        middle_name = self.request.POST.get("middle_name").replace(" ", "")
+        last_name = self.request.POST.get("last_name").replace(" ", "")
         try:
             if ValidUser.objects.get(first_name=first_name, middle_name=middle_name, last_name=last_name) is not None:
                 user = form.save()
                 user.status = ValidUser.objects.get(first_name=first_name, middle_name=middle_name, last_name=last_name).status
                 user.class_user = ValidUser.objects.get(first_name=first_name, middle_name=middle_name, last_name=last_name).class_user
+                user.school = ValidUser.objects.get(first_name=first_name, middle_name=middle_name, last_name=last_name).school
                 return super().form_valid(form)
 
         except ValidUser.DoesNotExist:

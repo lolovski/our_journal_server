@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% block content %}
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+      <div class="container py-5">
+      <ul class="nav nav-pills">
+          {% for class_user in school_class_list %}
+              <li> <h2>{{ class_user }}</h2> <br><br>
+               <div class="container py-5 row ">
+               <ul class="nav nav-pills">
+              <li><a class="btn btn-primary text-wrap"  style="width: 8rem;" href="{% url "school_admin_panel:add_class_students" class_id=class_user.id count_student=class_user.count_students %}">Добавить учеников</a><br><br> </li>
+              <li> <a class="btn btn-primary text-wrap" style="width: 8rem;" href="{% url "school_admin_panel:add_student" class_id=class_user.id %}">Добавить ученика</a> <br><br></li>
+              <li> <a class="btn btn-primary text-wrap" style="width: 8rem;" href="{% url "school_admin_panel:add_shedule" class_id=class_user.id %}">Добавить расписание</a> <br><br></li>
+              <li> <a class="btn btn-primary text-wrap" style="width: 8rem;" href="{% url "school_admin_panel:class_delete" class_id=class_user.id %}">Удалить класс</a> <br><br></li>
+                   </ul>
+                </div>
+      {% endfor %}
+              {% if not forloop.last %}<hr>{% endif %}
+      </li>
+      </ul>
+      </div>
+{% endblock %}

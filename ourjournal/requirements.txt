@@ -5,5 +5,5 @@ Django==4.0.6
 environs==11.0.0
 nest_asyncio==1.6.0
 python-dotenv==1.0.1
-
+as
 Requests==2.31.0

@@ -1,8 +1,17 @@
+from aiogram.types import user
 from django.core.exceptions import ValidationError
+from django.shortcuts import redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from listUsers.models import ValidUser
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from .models import User
+
+import requests
 
 
 class SingUp(CreateView):
@@ -25,6 +34,24 @@ class SingUp(CreateView):
 
         except ValidUser.DoesNotExist:
             raise ValidationError("Введите корректное ФИО")
+
+
+def create_auth_token(request):
+    user = request.user
+    if not user.api_token:
+        try:
+            if Token.objects.get(user=user):
+                user.api_token = Token.objects.get(user=user).key
+                user.api_token = Token.objects.get(user=user).key
+        except Token.DoesNotExist:
+            user.api_token = Token.objects.create(user=user)['token']
+        user.save()
+
+    return redirect('about:chat_bot_info')
+
+
+
+
 
 
 

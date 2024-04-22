@@ -220,3 +220,11 @@ def class_delete(request, class_id):
     this_class = Class.objects.get(id=class_id)
     this_class.delete()
     return redirect('school_admin_panel:classes_list')
+
+
+@school_admin_required
+def delete_shedule(request, class_id):
+    this_class = Class.objects.get(id=class_id)
+    this_shedule = Shedule.objects.filter(class_user_id=this_class.id)
+    this_shedule.delete()
+    return redirect('school_admin_panel:classes_list')

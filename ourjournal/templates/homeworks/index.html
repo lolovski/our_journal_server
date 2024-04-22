@@ -2,15 +2,11 @@
     {% block content %}
         {% if request.user.is_authenticated and not school_admin%}
       <!-- класс py-5 создает отступы сверху и снизу блока -->
-              <div class="container py-5 row">
-                <div class="col-12" style="background: #0dcaf0">{{ text }}</div>
+              <div class="container py-5 row br">
+               
 
-
-              <a class="navbar-brand" href="{% url 'classes:classes' %}">
-                  Классы
-              </a>
-              <a class="navbar-brand" href="{% url 'classes:classes_homeworks' class_user %}">Дневник</a>
-
+              <a class="btn btn-outline-dark" href="{% url 'classes:classes_homeworks' class_user %}"><br>Дневник<br><br></a>
+                
               </div>
             {% elif school_admin %}
              <div class="container py-5 row">
@@ -21,6 +17,6 @@
             {% else %}
              <div class="container py-5 row">
             <h3><a class="btn btn-primary" href="{% url 'users:signup' %}">Зарегистрироваться</a></h3>
+             </div>
         {% endif %}
-
-    {% endblock %}
+{% endblock %}

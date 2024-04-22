@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'sorl.thumbnail',
     'school_admin_panel.apps.SchoolAdminPanelConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+
 
 ]
 
@@ -133,12 +136,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATICFILES_DIRS = [
+"""STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"), '/Var/www/static/',
 ]
-
+"""
 STATIC_URL = '/static/'
-
+STATIC_ROOT = 'D:/Games/ourjournal/ourjournal/static'
 
 
 #STATIC_ROOT = '/home/ourjournal/ourjournal/static'
@@ -165,4 +168,15 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
     }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }

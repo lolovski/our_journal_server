@@ -30,3 +30,8 @@ def index_list(field, index):
     return field[index // 10]
 
 
+@register.filter
+def len_50(field):
+    return field[:50]
+
+

@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +27,9 @@ urlpatterns = [
     path('', include('classes.urls', namespace='classes')),
     path('homeworks/', include('homeworks.urls', namespace='homeworks')),
     path('about/', include('about.urls', namespace='about')),
-    path('school_admin_panel/', include('school_admin_panel.urls', namespace='school_admin_panel'))
+    path('school_admin_panel/', include('school_admin_panel.urls', namespace='school_admin_panel')),
+    path('api/v1/', include('api.urls', namespace='api')),
+    path('api-token-auth/', views.obtain_auth_token)
 
 ]
 

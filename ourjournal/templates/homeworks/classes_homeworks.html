@@ -18,7 +18,7 @@
                            {% if shedule.homeworks.all|in_category:hw_week_start %}
                                 {% for hw in shedule.homeworks.all|in_category:hw_week_start %}
                                     {% if hw.week == hw_week_start %}
-                                        <p class="text-xl-start h5">Домашнее задание: {{ hw.text }}</p>
+                                        <p class="text-xl-start h5">Домашнее задание: {{ hw.text|len_50 }}</p>
                                         
                                         <a class="btn btn-dark h5" href="{% url "classes:homework_detail" class_user_id=hw.author.class_user.id homework_id=hw.id %}">Подробнее</a>
                                     {% endif %}
